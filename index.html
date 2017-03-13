@@ -1,0 +1,109 @@
+<!-- <!DOCTYPE html> -->
+<html>
+<head>
+<title>Time Table</title>
+<link rel="stylesheet" type="text/css" href="assets/css/reset.css">
+	<!-- Latest compiled and minified CSS -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+
+<!-- Optional theme -->
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+
+
+<link rel="stylesheet" type="text/css" href="assets/css/style.css">
+</head>
+<body>
+<div class="container" id="print">
+	<div class="col-lg-2"></div>
+	<div class="col-lg-8">
+		<div class="row">
+			<div class="jumbotron text-center">
+			  <h1>Hello, world!</h1>
+			</div>
+		</div>
+
+		<div class="row">
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Panel title</h3>
+			  </div>
+			  <div class="panel-body">
+			    	<table class="table">
+					  <thead>
+					    <tr>
+					      <th>Train Name</th>
+					      <th>Destination</th>
+					      <th>Frequency (min)</th>
+					      <th>Next Arrival</th>
+					      <th>Minutes Away</th>
+					    </tr>
+					  </thead>
+					  <tbody id="trainTable">
+					    <tr>
+					      <td>1</td>
+					      <td>Mark</td>
+					      <td>Otto</td>
+					      <td>@mdo</td>
+					    </tr>
+					  </tbody>
+					</table>
+			  </div>
+			</div>
+		</div>
+		
+		<div class="row">
+			<div class="panel panel-default">
+			  <div class="panel-heading">
+			    <h3 class="panel-title">Panel title</h3>
+			  </div>
+			  <div class="panel-body">
+			    <form>
+				  <div class="form-group">
+				    <label for="trainName">Train Name</label>
+				    <input type="text" class="form-control" id="trainName">
+				  </div>
+				  <div class="form-group">
+				    <label for="trainDestination">Destination</label>
+				    <input type="text" class="form-control" id="trainDestination">
+				  </div>
+				  <div class="form-group">
+				    <label for="trainTime">First Train Time (HH:mm - military time)</label>
+				    <input type="text" class="form-control" id="trainTime">
+				  </div>
+				  <div class="form-group">
+				    <label for="trainFrequency">Frequency (min)</label>
+				    <input type="text" class="form-control" id="trainFrequency">
+				  </div>
+				  <button type="submit" class="btn btn-primary" id="trainButton">Submit</button>
+				</form>
+			  </div>
+			</div>
+		</div>
+
+	</div>	
+	<div class="col-lg-2"></div>
+</div>
+<script src="https://code.jquery.com/jquery-3.1.1.js"
+  integrity="sha256-16cdPddA6VdVInumRGo6IbivbERE8p7CQR3HzTBuELA="
+  crossorigin="anonymous"></script>
+
+  <!-- Moment.js -->
+<script src="https://momentjs.com/downloads/moment-with-locales.min.js"></script>
+
+<script src="https://www.gstatic.com/firebasejs/3.7.1/firebase.js"></script>
+<script>
+  // Initialize Firebase
+  var config = {
+    apiKey: "AIzaSyD6OzRe3IBBB20nsfo1QEc57-ffJ6zyMzU",
+    authDomain: "firstproject-2d897.firebaseapp.com",
+    databaseURL: "https://firstproject-2d897.firebaseio.com",
+    storageBucket: "firstproject-2d897.appspot.com",
+    messagingSenderId: "294556780639"
+  };
+  firebase.initializeApp(config);
+</script>
+<script src="assets/javascript/javascript.js"></script>
+
+
+</body>
+</html>
