@@ -1,6 +1,7 @@
 // declare firebase database var
 var database = firebase.database();
 
+
 // TODO delete after de-bug
 console.log(database);
 
@@ -47,38 +48,33 @@ database.ref().on("child_added", function(snapshot) {
 	
 	var trainFrequency = snapshot.val().trainFrequency;
 
+	console.log("trainFrequency: "+ trainFrequency);
+
 	var startTime = snapshot.val().trainTime;
+	console.log(startTime)
 
 	// converts user input of trainTime to a format readable by moment.js
 	var stringTime = moment(startTime, "hh:mm");
 
-	// converts that format again
-	// var convertedTime = moment(new Date(stringTime));
-
+	//turns string time into minutes
 	var minuteTime = moment().diff(stringTime, "minutes");
 
-	var startToday = moment().startOf("day");
-
-	var minuteTimeNow = moment().diff(startToday, "minutes");
-
-	console.log("minuteTime: " + minuteTime);
-	console.log("minuteTimeNow: " + minuteTimeNow);
-
-	var minutesMinus = minuteTimeNow - minuteTime;
-
-	console.log("minutesMinus: " + minutesMinus)
-
-	var minutesModulus = minutesMinus % trainFrequency;
+	// modulus minute frequency and how many minutes inbetween start and now
+	var minutesModulus = minuteTime % trainFrequency;
 
 	console.log("minutesModulus: " + minutesModulus);
 
-	var timeTillNext = minutesModulus - trainFrequency;
+	// subtracks the remainder minutes from frequency 
+	var timeTillNext = trainFrequency - minutesModulus;
 
 	console.log("next time:" + timeTillNext);
+
+	// displays how long in minutes to an actual time
+
+	var displayNextTrainTime = moment().add(timeTillNext, "minutes").format("LT");
+
 	
-	// currently just inserting into array
-	
-	var trainArray = [trainName, trainDestination, trainFrequency, startTime, startTime];
+	var trainArray = [trainName, trainDestination, trainFrequency, displayNextTrainTime, timeTillNext];
 
 	// loop to append table data to the table row
 	for(var i = 0; i <trainArray.length; i++){
