@@ -4,11 +4,6 @@ var database = firebase.database();
 // TODO delete after de-bug
 console.log(database);
 
-// var trainNumber = 0;
-
-var numberOfTrains = [];
-
-
 
 // when clicking on the train button
 $("#trainButton").on("click", function(event){
@@ -48,11 +43,41 @@ database.ref().on("child_added", function(snapshot) {
 	// pulls train data from firebase
 	var trainName = snapshot.val().trainName;
 	var trainDestination = snapshot.val().trainDestination;
-	var startTime = snapshot.val().trainTime;
+	// TODO maninupulate times wiht moment.js
+	
 	var trainFrequency = snapshot.val().trainFrequency;
 
+	var startTime = snapshot.val().trainTime;
+
+	// converts user input of trainTime to a format readable by moment.js
+	var stringTime = moment(startTime, "hh:mm");
+
+	// converts that format again
+	// var convertedTime = moment(new Date(stringTime));
+
+	var minuteTime = moment().diff(stringTime, "minutes");
+
+	var startToday = moment().startOf("day");
+
+	var minuteTimeNow = moment().diff(startToday, "minutes");
+
+	console.log("minuteTime: " + minuteTime);
+	console.log("minuteTimeNow: " + minuteTimeNow);
+
+	var minutesMinus = minuteTimeNow - minuteTime;
+
+	console.log("minutesMinus: " + minutesMinus)
+
+	var minutesModulus = minutesMinus % trainFrequency;
+
+	console.log("minutesModulus: " + minutesModulus);
+
+	var timeTillNext = minutesModulus - trainFrequency;
+
+	console.log("next time:" + timeTillNext);
+	
 	// currently just inserting into array
-	// TODO maninupulate dats wiht moment.js
+	
 	var trainArray = [trainName, trainDestination, trainFrequency, startTime, startTime];
 
 	// loop to append table data to the table row
