@@ -4,6 +4,9 @@ var database = firebase.database();
 // TODO delete after de-bug
 console.log(database);
 
+// var trainNumber = 0;
+
+var numberOfTrains = [];
 
 
 
@@ -20,32 +23,39 @@ $("#trainButton").on("click", function(event){
 	var trainFrequency = $("#trainFrequency").val();
 
 	// take those vars and store in firebase
-	database.ref().set({
+	database.ref().push({
 		trainName: trainName,
 		trainDestination: trainDestination,
 		trainTime: trainTime,
 		trainFrequency: trainFrequency,
 	});
+
+	$("#trainName").val("");
+	$("#trainDestination").val("");
+	$("#trainTime").val("");
+	$("#trainFrequency").val("");
 });
 
-database.ref().on("value", function(snapshot) {
+database.ref().on("child_added", function(snapshot) {
 
   // Log everything that's coming out of snapshot
   console.log(snapshot.val());
   console.log(snapshot.val().trainTime);
-  // TODO delete below - creating <td> and append
+  // creates a new table row to append to the table
   var tableRow = $("<tr>");
-
-
-	$("#trainTable").append(tableRow);
+  $("#trainTable").append(tableRow);
 	
+	// pulls train data from firebase
 	var trainName = snapshot.val().trainName;
 	var trainDestination = snapshot.val().trainDestination;
 	var startTime = snapshot.val().trainTime;
 	var trainFrequency = snapshot.val().trainFrequency;
 
+	// currently just inserting into array
+	// TODO maninupulate dats wiht moment.js
 	var trainArray = [trainName, trainDestination, trainFrequency, startTime, startTime];
 
+	// loop to append table data to the table row
 	for(var i = 0; i <trainArray.length; i++){
 		
 		var tableData = $("<td>");
