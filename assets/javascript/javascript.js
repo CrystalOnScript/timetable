@@ -13,10 +13,10 @@ $("#trainButton").on("click", function(event){
 	event.preventDefault();
 
 	// take strigns from input box and store in var
-	var trainName = $("#trainName").val();
-	var trainDestination = $("#trainDestination").val();
-	var trainTime = $("#trainTime").val();
-	var trainFrequency = $("#trainFrequency").val();
+	var trainName = $("#trainName").val().trim();
+	var trainDestination = $("#trainDestination").val().trim();
+	var trainTime = $("#trainTime").val().trim();
+	var trainFrequency = $("#trainFrequency").val().trim();
 
 	// take those vars and store in firebase
 	database.ref().push({
