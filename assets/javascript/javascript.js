@@ -54,7 +54,7 @@ database.ref().on("child_added", function(snapshot) {
 	console.log(startTime)
 
 	// converts user input of trainTime to a format readable by moment.js
-	var stringTime = moment(startTime, "hh:mm");
+	var stringTime = moment(startTime, "hh:mm a");
 
 	//turns string time into minutes
 	var minuteTime = moment().diff(stringTime, "minutes");
