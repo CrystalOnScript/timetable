@@ -1,9 +1,26 @@
+// While it may not seem imperative for smaller programs, 
+// you should get in the habit of wrapping your js code in either a 
+
+// $(document).ready(function(){
+//  // code goes here
+// })
+
+// or an IIFE (immediately invoked function expression)
+
+// ;(function(){
+//  // code goes here
+// })()
+
+// One of the most important reasons for that is security - because right now your global variables (ie `database`)
+// can be tampered with through the console by a malicious visitor to your train schedule app 😮
+
 // declare firebase database var
 var database = firebase.database();
 
 
 // TODO delete after de-bug
-console.log(database);
+// console.log(database);
+// TODO do your TODO's 🙃
 
 // when clicking on the train button
 $("#trainButton").on("click", function(event){
@@ -33,9 +50,15 @@ $("#trainButton").on("click", function(event){
 
 // put child_added in function - placed in set interval 
 function updateTableInterval(){
-		
-	$("#trainTable").empty();		
 
+	$("#trainTable").empty();
+
+	// by placing this listener inside of the updateTableInterval function you will end up adding another 
+	// listener per minute. The only noticeable issue with doing that is that when a user adds a new train, it will be appended
+	// to the table as many times as there are listeners. Luckily, the table will be corrected at the next interval tick.
+	// Unluckily, the user could have to wait up to a minute for that to happen 😕
+	// So it's better to only set your listener one time outside of this interval function. And then just read from firebase
+	// on the interval, empty the train table, and reappend all the train data.
 	database.ref().on("child_added", function(snapshot) {
 
 	var key = database.key;
@@ -68,6 +91,11 @@ function updateTableInterval(){
 		
 		var trainArray = [trainName, trainDestination, trainFrequency, displayNextTrainTime, timeTillNext];
 
+		// when iterating over the values in an array, feel free to use the native `.forEach` method
+		// one particularly useful side effect of that approach is that it creates a functional context
+		// for each iteration of the loop which helps prevent variables from being attached to the global scope object
+		// https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/forEach
+
 		// loop to append table data to the table row
 		for(var i = 0; i <trainArray.length; i++){
 			
@@ -83,7 +111,7 @@ function updateTableInterval(){
 		}, function(errorObject) {
 		  console.log("Errors handled: " + errorObject.code);
 	});	
-};	
+};
 
 // calls function to generate table
 updateTableInterval();
